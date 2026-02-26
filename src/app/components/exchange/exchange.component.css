@@ -1,0 +1,56 @@
+.exchange-root { max-width: 980px; margin: 1rem auto; padding: 0 1rem; }
+.loading, .error { text-align: center; padding: 1rem; }
+.card { border: 1px solid #e6e6e6; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); overflow: hidden; }
+.card-header { padding: 1rem 1.25rem; background: #fafafa; border-bottom: 1px solid #eee; }
+.card-header h2 { margin: 0 0 .25rem 0; font-size: 1.125rem; }
+.card-body { padding: 0.75rem 1.25rem 1.25rem; }
+.table-wrap { max-height: 420px; overflow: auto; }
+.rates-table { width: 100%; border-collapse: collapse; }
+.rates-table th, .rates-table td { text-align: left; padding: .5rem .75rem; border-bottom: 1px solid #f0f0f0; }
+.rates-table th { background: #fafafa; position: sticky; top: 0; z-index: 1; }
+.rate { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace; }
+
+.refresh-btn {
+	background: #1976d2;
+	color: rgb(255, 255, 255);
+	border: none;
+	padding: 0.4rem 0.75rem;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 600;
+}
+.refresh-btn[disabled] {
+	opacity: 0.6;
+	cursor: default;
+}
+
+/* Cards grid below table */
+.cards-grid { padding: 0.5rem 1rem 1.25rem 1rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.5rem; }
+.card-item { border: 1px solid #eaeaea; border-radius: 8px; padding: 0.6rem; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.card-top { display:flex; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.5rem; }
+.card-top strong { font-size: 1rem; }
+.currency-name { color: #666; font-size: 0.85rem; }
+.card-body-small div { font-size: 0.9rem; margin: 0.15rem 0; }
+
+@media (max-width: 520px) {
+	.cards { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+	.card-item { padding: 0.5rem; }
+}
+
+
+.card-item {
+  background: linear-gradient(135deg, #92c6de 0%, #4b3298 100%); /* azul */
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.25);
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.18);
+}
+
+.card-item .currency-name,
+.card-item .rate,
+.card-item strong { color: #fff; }
+
+.card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(2, 6, 23, 0.28);
+}

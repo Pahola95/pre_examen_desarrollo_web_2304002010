@@ -1,0 +1,66 @@
+<div class="exchange-root">
+  <div *ngIf="loading" class="loading">Cargando tasas de cambio…</div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <section *ngIf="!loading && !error" class="card">
+    <header class="card-header">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <h2 style="margin:0">Tasas de cambio — {{ base }}</h2>
+        <!--
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <label for="base-select" style="font-size:.9rem">Base:</label>
+          <select id="base-select" [(ngModel)]="base" (ngModelChange)="onBaseChange($event)" [disabled]="loading">
+            <option *ngFor="let b of bases" [value]="b">{{ b }}</option>
+          </select>
+          <button class="refresh-btn" (click)="refresh()" [disabled]="loading" aria-label="Refresh rates">Actualizar</button>
+        </div>
+        -->
+        
+      </div>
+      <!--
+      <div style="display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;margin-top:.5rem;">
+        <small *ngIf="dateObj">Ultima actualizacion del servicio: {{ dateObj | date:'yyyy-MM-dd HH:mm':timezone }} (Guatemala)</small>
+        <small>Ahora (Guatemala): {{ currentTime | date:'yyyy-MM-dd HH:mm:ss':timezone }}</small>
+      </div>
+      -->
+      
+    </header>
+
+    <div class="card-body">
+      <div class="table-wrap">
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Moneda</th>
+              <th>Tasa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let code of rateKeys(300)">
+              <td>{{ code }}</td>
+              <td class="rate">{{ (code === base ? 1 : rates[code]) | number:'1.4-6' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Cards view: summarized rates shown as responsive cards -->
+    <div class="cards-grid" aria-label="Tarjetas de monedas">
+      <h3 style="margin:0.75rem 1rem 0.5rem 1rem;">Tarjetas</h3>
+      <div class="cards">
+        <article class="card-item" *ngFor="let code of rateKeys(50)">
+          <div class="card-top">
+            <strong>{{ code }}</strong>
+            <span class="currency-name">{{ currencyName(code) }}</span>
+          </div>
+          <div class="card-body-small">
+            <div>Tasa: <span class="rate">{{ rates[code] | number:'1.4-6' }}</span></div>
+            <div>Inverso: <span class="rate">{{ inverseRate(code) || 0 | number:'1.6-8' }}</span></div>
+            <div>100 {{ base }}: <span class="rate">{{ valueFor100USD(code) | number:'1.2-2' }}</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</div>
