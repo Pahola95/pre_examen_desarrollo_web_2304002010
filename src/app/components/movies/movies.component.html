@@ -1,0 +1,79 @@
+<div class="movies-container">
+  <div *ngIf="loading" class="loading">
+    Cargando películas...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error && movies.length > 0" class="movies-grid">
+    <div *ngFor="let movie of movies" class="movie-card">
+      <div class="movie-poster">
+        <img 
+          *ngIf="movie.poster_path" 
+          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" 
+          [alt]="movie.title"
+          class="poster-img"
+        />
+        <div *ngIf="!movie.poster_path" class="no-poster">No Image</div>
+      </div>
+      <div class="movie-info">
+        <h3>{{ movie.title }}</h3>
+        <p class="overview">{{ movie.overview }}</p>
+        <p class="rating">⭐ {{ movie.vote_average }}/10</p>
+        <button 
+          class="rate-btn"
+          (click)="openRatingModal(movie.id, movie.title)"
+        >
+          Calificar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && movies.length === 0" class="no-movies">
+    No hay películas disponibles.
+  </div>
+</div>
+
+<!-- Rating Modal -->
+<div *ngIf="showRatingModal" class="modal-overlay" (click)="closeRatingModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Calificar: {{ selectedMovieTitle }}</h2>
+      <button class="close-btn" (click)="closeRatingModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="rating-stars">
+        <button 
+          *ngFor="let star of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+          class="star-btn"
+          [class.active]="star <= userRating"
+          (click)="setRating(star)"
+        >
+          ⭐
+        </button>
+      </div>
+      <p class="rating-value" *ngIf="userRating > 0">
+        Tu calificación: {{ userRating }}/10
+      </p>
+
+      <div *ngIf="ratingError" class="rating-error">
+        {{ ratingError }}
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="closeRatingModal()">Cancelar</button>
+      <button 
+        class="btn-submit"
+        (click)="submitRating()"
+        [disabled]="userRating === 0 || ratingLoading"
+      >
+        {{ ratingLoading ? 'Enviando...' : 'Enviar Calificación' }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -7,4 +7,9 @@ export const routes: Routes = [
 		loadComponent: () =>
 			import('./components/exchange/exchange.component').then((m) => m.ExchangeComponent),
 	},
+	{
+		path: 'movies',
+		loadComponent: () =>
+			import('./components/movies/movies.component').then((m) => m.MoviesComponent),
+	},
 ];
